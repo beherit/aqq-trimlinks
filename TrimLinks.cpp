@@ -1,10 +1,8 @@
-//---------------------------------------------------------------------------
 #include <vcl.h>
 #include <windows.h>
 #pragma hdrstop
 #pragma argsused
-#include "Aqq.h"
-//---------------------------------------------------------------------------
+#include <PluginAPI.h>
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
@@ -12,7 +10,7 @@ int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved
 }
 //---------------------------------------------------------------------------
 
-//Struktury-glowne-----------------------------------------------------------
+ //Struktury-glowne-----------------------------------------------------------
 TPluginLink PluginLink;
 TPluginInfo PluginInfo;
 PPluginContact Contact;
@@ -98,7 +96,7 @@ int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam)
 	  Message->Body = Body.w_str();
 	  lParam = (LPARAM)Message;
 	  return 2;
-	}  
+	}
   }
 
   return 0;
@@ -177,7 +175,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,2,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,0,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
