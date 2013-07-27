@@ -17,13 +17,12 @@ TPluginLink PluginLink;
 TPluginInfo PluginInfo;
 PPluginContact Contact;
 PPluginMessage Message;
-PPluginWindowEvent WindowEvent;
 //Gdy-zostalo-uruchomione-wyladowanie-wtyczki-wraz-z-zamknieciem-komunikatora
 bool ForceUnloadExecuted = false;
 //FORWARD-AQQ-HOOKS----------------------------------------------------------
 //int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
+//int __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
 //int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam);
-//int __stdcall OnWindowEvent(WPARAM wParam, LPARAM lParam);
 //---------------------------------------------------------------------------
 
 //Skracanie wyswietlania odnosnikow
@@ -106,6 +105,16 @@ int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
+//Hook na wylaczenie komunikatora poprzez usera
+int __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam)
+{
+  //Info o rozpoczeciu procedury zamykania komunikatora
+  ForceUnloadExecuted = true;
+
+  return 0;
+}
+//---------------------------------------------------------------------------
+
 //Hook na zmiane widocznego opisu kontatku na liscie kontatkow
 int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam)
 {
@@ -127,32 +136,16 @@ int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
-//Hook na zamkniecie/otwarcie okien
-int __stdcall OnWindowEvent(WPARAM wParam, LPARAM lParam)
-{
-  //Pobranie informacji o oknie i eventcie
-  WindowEvent = (PPluginWindowEvent)lParam;
-  int Event = WindowEvent->WindowEvent;
-  UnicodeString EventType = (wchar_t*)WindowEvent->ClassName;
-  //Zamkniecie okna kontaktow
-  if((EventType=="TfrmMain")&&(Event==WINDOW_EVENT_CLOSE))
-   ForceUnloadExecuted = true;
-
-  return 0;
-}
-//---------------------------------------------------------------------------
-
-
 extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
   //Hook na pokazywane wiadomosci
   PluginLink.HookEvent(AQQ_CONTACTS_ADDLINE,OnAddLine);
+  //Hook na wylaczenie komunikatora poprzez usera
+  PluginLink.HookEvent(AQQ_SYSTEM_BEFOREUNLOAD,OnBeforeUnload);
   //Hook na zmiane widocznego opisu kontatku na liscie kontatkow
   PluginLink.HookEvent(AQQ_CONTACTS_SETHTMLSTATUS,OnSetHTMLStatus);
-  //Hook na zamkniecie/otwarcie okien
-  PluginLink.HookEvent(AQQ_SYSTEM_WINDOWEVENT,OnWindowEvent);
   //Wszystkie moduly zostaly zaladowane
   if(PluginLink.CallService(AQQ_SYSTEM_MODULESLOADED,0,0))
    //Odswiezenie listy kontaktow
@@ -167,12 +160,11 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
 {
   //Wyladowanie wszystkich hookow
   PluginLink.UnhookEvent(OnAddLine);
+  PluginLink.UnhookEvent(OnBeforeUnload);
   PluginLink.UnhookEvent(OnSetHTMLStatus);
-  PluginLink.UnhookEvent(OnWindowEvent);
   //Usuniecie wskaznikow do struktur
   delete Contact;
   delete Message;
-  delete WindowEvent;
   //Odswiezenie listy kontaktow
   if(!ForceUnloadExecuted) PluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)L"aRefresh");
 
@@ -185,7 +177,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,0,2,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
