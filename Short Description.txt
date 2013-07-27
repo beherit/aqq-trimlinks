@@ -1,0 +1,1 @@
+Wtyczka posiada jedn¹ prost¹ funkcjonalnoœæ – skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.
