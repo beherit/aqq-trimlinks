@@ -1,3 +1,7 @@
+1.2.0.0
+-----
+* Dodanie 64-bitowej wersji wtyczki.
+
 1.1.1.0
 -----
 * Drobne poprawki w procesie wy³adowania wtyczki.

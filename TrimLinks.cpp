@@ -1,5 +1,7 @@
-#include <vcl.h>
-#include <windows.h>
+//#include <vcl.h>
+//#include <windows.h>
+#include <System.hpp>
+#include <System.AnsiStrings.hpp>
 #pragma hdrstop
 #pragma argsused
 #include <PluginAPI.h>
@@ -18,9 +20,9 @@ PPluginMessage Message;
 //Gdy-zostalo-uruchomione-wyladowanie-wtyczki-wraz-z-zamknieciem-komunikatora
 bool ForceUnloadExecuted = false;
 //FORWARD-AQQ-HOOKS----------------------------------------------------------
-//int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
-//int __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
-//int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam);
+int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
+int __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
+int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam);
 //---------------------------------------------------------------------------
 
 //Skracanie wyswietlania odnosnikow
@@ -168,11 +170,11 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
 //---------------------------------------------------------------------------
 
 //Informacje o wtyczce
-extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVersion)
+extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVersion)
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,0,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
