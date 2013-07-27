@@ -1,10 +1,9 @@
-//#include <vcl.h>
-//#include <windows.h>
-#include <System.hpp>
-#include <System.AnsiStrings.hpp>
+#include <vcl.h>
+#include <windows.h>
 #pragma hdrstop
 #pragma argsused
 #include <PluginAPI.h>
+#include <IdHashMessageDigest.hpp>
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
@@ -23,6 +22,13 @@ bool ForceUnloadExecuted = false;
 int __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
 int __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
 int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam);
+//---------------------------------------------------------------------------
+
+//Pobieranie sciezki katalogu prywatnego wtyczek
+UnicodeString GetPluginUserDir()
+{
+  return StringReplace((wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETPLUGINUSERDIR,0,0), "\\", "\\\\", TReplaceFlags() << rfReplaceAll);
+}
 //---------------------------------------------------------------------------
 
 //Skracanie wyswietlania odnosnikow
@@ -136,10 +142,63 @@ int __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam)
 }
 //---------------------------------------------------------------------------
 
+//Zapisywanie zasobów
+void ExtractRes(wchar_t* FileName, wchar_t* ResName, wchar_t* ResType)
+{
+  TPluginTwoFlagParams PluginTwoFlagParams;
+  PluginTwoFlagParams.cbSize = sizeof(TPluginTwoFlagParams);
+  PluginTwoFlagParams.Param1 = ResName;
+  PluginTwoFlagParams.Param2 = ResType;
+  PluginTwoFlagParams.Flag1 = (int)HInstance;
+  PluginLink.CallService(AQQ_FUNCTION_SAVERESOURCE,(WPARAM)&PluginTwoFlagParams,(LPARAM)FileName);
+}
+//---------------------------------------------------------------------------
+
+//Obliczanie sumy kontrolnej pliku
+UnicodeString MD5File(UnicodeString FileName)
+{
+  if(FileExists(FileName))
+  {
+	UnicodeString Result;
+	TFileStream *fs;
+
+	fs = new TFileStream(FileName, fmOpenRead | fmShareDenyWrite);
+	try
+	{
+	  TIdHashMessageDigest5 *idmd5= new TIdHashMessageDigest5();
+	  try
+	  {
+		Result = idmd5->HashStreamAsHex(fs);
+	  }
+	  __finally
+	  {
+		delete idmd5;
+	  }
+	}
+	__finally
+	{
+	  delete fs;
+	}
+
+	return Result;
+  }
+  else
+   return 0;
+}
+//---------------------------------------------------------------------------
+
 extern "C" int __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
+  //Wypakiwanie ikonki TrimLinks.dll.png
+  //AE97BBAABA1C385A8FD93D66723653DE
+  if(!DirectoryExists(GetPluginUserDir()+"\\\\Shared"))
+   CreateDir(GetPluginUserDir()+"\\\\Shared");
+  if(!FileExists(GetPluginUserDir()+"\\\\Shared\\\\TrimLinks.dll.png"))
+   ExtractRes((GetPluginUserDir()+"\\\\Shared\\\\TrimLinks.dll.png").w_str(),L"SHARED",L"DATA");
+  else if(MD5File(GetPluginUserDir()+"\\\\Shared\\\\TrimLinks.dll.png")!="AE97BBAABA1C385A8FD93D66723653DE")
+   ExtractRes((GetPluginUserDir()+"\\\\Shared\\\\TrimLinks.dll.png").w_str(),L"SHARED",L"DATA");
   //Hook na pokazywane wiadomosci
   PluginLink.HookEvent(AQQ_CONTACTS_ADDLINE,OnAddLine);
   //Hook na wylaczenie komunikatora poprzez usera
@@ -174,7 +233,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,2,1,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
