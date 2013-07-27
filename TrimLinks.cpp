@@ -160,9 +160,6 @@ extern "C" int __declspec(dllexport) __stdcall Unload()
   PluginLink.UnhookEvent(OnAddLine);
   PluginLink.UnhookEvent(OnBeforeUnload);
   PluginLink.UnhookEvent(OnSetHTMLStatus);
-  //Usuniecie wskaznikow do struktur
-  delete Contact;
-  delete Message;
   //Odswiezenie listy kontaktow
   if(!ForceUnloadExecuted) PluginLink.CallService(AQQ_SYSTEM_RUNACTION,0,(LPARAM)L"aRefresh");
 
@@ -175,7 +172,7 @@ extern "C" __declspec(dllexport) PPluginInfo __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,1,1,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
