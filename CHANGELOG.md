@@ -1,3 +1,12 @@
+1.3.0.0
+-----
+* Forma ustawieñ z mo¿liwoœci¹ wy³¹czenia skracania odnoœników dla wiadomoœci lub opisów kontaktów.
+* Pobieranie tytu³ów filmików z YouTube dla opisów kontaktów.
+* Spore zmiany w funkcji skracania odnoœników.
+* Inne mniej wa¿ne zmiany w kodzie.
+* Kompilacja pod poprawionymi nag³ówkami dla wersji 64-bitowej.
+* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez u¿ycie kompresji LZMA.
+
 1.2.1.0
 -----
 * Wtyczka posiada w³asn¹ ikonê pokazywan¹ w ustawieniach komunikatora na liœcie wtyczek.
