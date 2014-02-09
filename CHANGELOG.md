@@ -1,3 +1,8 @@
+1.3.1.0
+-----
+* Drobne poprawki w zapisywaniu do cache tytu³ów filmów z YouTube.
+* Aktualizacja komponentów AlphaControls do nowszej wersji (8.53).
+
 1.3.0.0
 -----
 * Forma ustawieñ z mo¿liwoœci¹ wy³¹czenia skracania odnoœników dla wiadomoœci lub opisów kontaktów.

@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2013 Krzysztof Grochocki
+// Copyright (C) 2012-2014 Krzysztof Grochocki
 //
 // This file is part of TrimLinks
 //
@@ -45,9 +45,10 @@ __declspec(dllimport)int GetHUE();
 __declspec(dllimport)int GetSaturation();
 __declspec(dllimport)void LoadSettings();
 __declspec(dllimport)void RefreshList();
-__declspec(dllimport)bool ChkAvatarsListItem();
+__declspec(dllimport)bool ChkYouTubeListItem();
 __declspec(dllimport)UnicodeString GetYouTubeTitleListItem();
 __declspec(dllimport)void AddToYouTubeExcludeList(UnicodeString ID);
+__declspec(dllimport)UnicodeString ConvertToInt(UnicodeString Text);
 __declspec(dllimport)UnicodeString EncodeBase64(UnicodeString Str);
 //---------------------------------------------------------------------------
 __fastcall TSettingsForm::TSettingsForm(TComponent* Owner)
@@ -214,7 +215,7 @@ void __fastcall TSettingsForm::GetYouTubeTitleThreadRun(TIdThreadComponent *Send
 	  if(!Title.IsEmpty())
 	  {
 		TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Session.ini");
-		Ini->WriteString("YouTube",ID,EncodeBase64(Title));
+		Ini->WriteString("YouTube",ConvertToInt(ID),EncodeBase64(Title));
 		delete Ini;
 	  }
 	  //Blokowanie wskaznego ID na czas sesji
@@ -224,7 +225,7 @@ void __fastcall TSettingsForm::GetYouTubeTitleThreadRun(TIdThreadComponent *Send
 	else AddToYouTubeExcludeList(ID);
   }
   //Brak itemow do przetworzenia
-  if(!ChkAvatarsListItem())
+  if(!ChkYouTubeListItem())
   {
 	//Zatrzymanie watku
 	GetYouTubeTitleThread->Stop();

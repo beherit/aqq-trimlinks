@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2013 Krzysztof Grochocki
+// Copyright (C) 2012-2014 Krzysztof Grochocki
 //
 // This file is part of TrimLinks
 //
@@ -128,7 +128,7 @@ int GetSaturation()
 //---------------------------------------------------------------------------
 
 //Sprawdzanie listy ID filmow YouTube do przetworzenia
-bool ChkAvatarsListItem()
+bool ChkYouTubeListItem()
 {
   if(GetYouTubeTitleList->Count) return true;
   else return false;
@@ -162,17 +162,41 @@ void RefreshList()
 }
 //---------------------------------------------------------------------------
 
+//Konwersja tekstu na liczbe
+int Convert(UnicodeString Char)
+{
+  for(int IntChar=-113;IntChar<=255;IntChar++)
+  {
+	if(Char==CHAR(IntChar))
+	 return IntChar;
+  }
+  return 0;
+}
+//---------------------------------------------------------------------------
+UnicodeString ConvertToInt(UnicodeString Text)
+{
+  UnicodeString ConvertedText;
+  for(int Count=1;Count<=Text.Length();Count++)
+  {
+	UnicodeString tmpStr = Text.SubString(Count, 1);
+	int tmpInt = Convert(tmpStr);
+	ConvertedText = ConvertedText + IntToStr(tmpInt);
+  }
+  return ConvertedText;
+}
+//---------------------------------------------------------------------------
+
 //Kodowanie ciagu znakow do Base64
 UnicodeString EncodeBase64(UnicodeString Str)
 {
-  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),1);
+  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),3);
 }
 //---------------------------------------------------------------------------
 
 //Dekodowanie ciagu znakow z Base64
 UnicodeString DecodeBase64(UnicodeString Str)
 {
-  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),0);
+  return (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_BASE64,(WPARAM)Str.w_str(),2);
 }
 //---------------------------------------------------------------------------
 
@@ -226,7 +250,7 @@ UnicodeString TrimLinks(UnicodeString Body, bool Status)
 	  {
 		//Szukanie ID w cache
 		TIniFile *Ini = new TIniFile(SessionFileDir);
-		UnicodeString Title = DecodeBase64(Ini->ReadString("YouTube",ID,""));
+		UnicodeString Title = DecodeBase64(Ini->ReadString("YouTube",ConvertToInt(ID),""));
 		delete Ini;
 		//Tytul pobrany z cache
 		if(!Title.IsEmpty())
@@ -593,7 +617,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,0,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,1,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
   PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
