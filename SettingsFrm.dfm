@@ -182,8 +182,6 @@ object SettingsForm: TSettingsForm
     TabOrder = 4
     OnClick = OkButtonClick
     SkinData.SkinSection = 'BUTTON'
-    ExplicitLeft = 387
-    ExplicitTop = 237
   end
   object CancelButton: TsButton
     Left = 139
@@ -196,8 +194,6 @@ object SettingsForm: TSettingsForm
     TabOrder = 3
     OnClick = aExitExecute
     SkinData.SkinSection = 'BUTTON'
-    ExplicitLeft = 468
-    ExplicitTop = 237
   end
   object SaveButton: TsButton
     Left = 220
@@ -211,8 +207,6 @@ object SettingsForm: TSettingsForm
     TabOrder = 2
     OnClick = aSaveSettingsWExecute
     SkinData.SkinSection = 'BUTTON'
-    ExplicitLeft = 549
-    ExplicitTop = 237
   end
   object MessagesCheckBox: TsCheckBox
     Left = 16
