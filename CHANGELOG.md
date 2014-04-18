@@ -1,3 +1,8 @@
+1.3.2.0
+-----
+* Poprawki w procesie ³adowania wtyczki.
+* Inne drobne poprawki.
+
 1.3.1.0
 -----
 * Drobne poprawki w zapisywaniu do cache tytu³ów filmów z YouTube.
