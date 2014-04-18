@@ -41,6 +41,8 @@ TPluginLink PluginLink;
 TPluginInfo PluginInfo;
 //Sciezka-do-pliku-sesji-----------------------------------------------------
 UnicodeString SessionFileDir;
+//Gdy-zostalo-uruchomione-zaladowanie-wtyczki--------------------------------
+bool LoadExecuted = false;
 //Gdy-zostalo-uruchomione-wyladowanie-wtyczki-wraz-z-zamknieciem-komunikatora
 bool ForceUnloadExecuted = false;
 //Informacja-o-widocznym-oknie-instalowania-dodatku--------------------------
@@ -51,7 +53,7 @@ TStringList *GetYouTubeTitleList = new TStringList;
 TStringList *YouTubeExcludeList = new TStringList;
 //SETTINGS-------------------------------------------------------------------
 bool TrimMessages;
-bool TrimStatus;
+bool TrimStatus = true;
 //FORWARD-AQQ-HOOKS----------------------------------------------------------
 INT_PTR __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
@@ -331,8 +333,8 @@ UnicodeString TrimLinks(UnicodeString Body, bool Status)
 //Hook na pokazywane wiadomosci
 INT_PTR __stdcall OnAddLine(WPARAM wParam, LPARAM lParam)
 {
-  //Skracanie wiadomosci wlaczone
-  if(TrimMessages)
+  //Skracanie wiadomosci wlaczone / komunikator nie jest zamykany
+  if((TrimMessages)&&(!ForceUnloadExecuted))
   {
 	//Pobieranie danych wiadomosci
 	TPluginMessage AddLineMessage = *(PPluginMessage)lParam;
@@ -390,8 +392,8 @@ INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 //Hook na zmiane widocznego opisu kontatku na liscie kontatkow
 INT_PTR __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam)
 {
-  //Skracanie opisow wlaczone
-  if(TrimStatus)
+  //Skracanie opisow wlaczone / komunikator nie jest zamykany
+  if((TrimStatus)&&(!ForceUnloadExecuted))
   {
 	//Pobieranie sformatowanego opisu
 	UnicodeString Body = (wchar_t*)lParam;
@@ -532,13 +534,15 @@ void LoadSettings()
   TrimMessages = Ini->ReadBool("Trim","Messages",true);
   bool pTrimStatus = TrimStatus;
   TrimStatus = Ini->ReadBool("Trim","Status",true);
-  if(pTrimStatus!=TrimStatus) RefreshList();
+  if((pTrimStatus!=TrimStatus)&&(!LoadExecuted)) RefreshList();
   delete Ini;
 }
 //---------------------------------------------------------------------------
 
 extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
 {
+  //Info o rozpoczeciu procedury ladowania
+  LoadExecuted = true;
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
    //Pobranie sciezki do katalogu prywatnego uzytkownika
@@ -574,6 +578,8 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
   if(PluginLink.CallService(AQQ_SYSTEM_MODULESLOADED,0,0))
    //Odswiezenie listy kontaktow
    RefreshList();
+  //Info o zakonczeniu procedury ladowania
+  LoadExecuted = false;
 
   return 0;
 }
@@ -617,11 +623,11 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 {
   PluginInfo.cbSize = sizeof(TPluginInfo);
   PluginInfo.ShortName = L"TrimLinks";
-  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,1,0);
+  PluginInfo.Version = PLUGIN_MAKE_VERSION(1,3,2,0);
   PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
-  PluginInfo.Author = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Author = L"Krzysztof Grochocki";
   PluginInfo.AuthorMail = L"kontakt@beherit.pl";
-  PluginInfo.Copyright = L"Krzysztof Grochocki (Beherit)";
+  PluginInfo.Copyright = L"Krzysztof Grochocki";
   PluginInfo.Homepage = L"http://beherit.pl";
   PluginInfo.Flag = 0;
   PluginInfo.ReplaceDefaultModule = 0;

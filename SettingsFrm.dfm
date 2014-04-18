@@ -211,9 +211,9 @@ object SettingsForm: TSettingsForm
   object MessagesCheckBox: TsCheckBox
     Left = 16
     Top = 31
-    Width = 108
+    Width = 102
     Height = 20
-    Caption = 'we wiadomo'#347'ciach'
+    Caption = 'w wiadomo'#347'ciach'
     Checked = True
     State = cbChecked
     TabOrder = 0

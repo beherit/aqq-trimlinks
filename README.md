@@ -1,18 +1,18 @@
 TrimLinks
 ======
-TrimLinks jest wtyczkÄ… do komunikatora [AQQ](http://www.aqq.eu/pl.php). Skraca wszystkie odnoÅ›niki w oknie rozmowy jak i te na liÅ›cie kontaktÃ³w do znaczniej wygodniejszej formy.
+TrimLinks jest wtyczk¹ do komunikatora [AQQ](http://www.aqq.eu/pl.php). Skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.
 
-BÅ‚Ä™dy
+B³êdy
 -------
-Znalezione bÅ‚Ä™dy wtyczki naleÅ¼y zgÅ‚aszaÄ‡ na [tracekerze](http://forum.aqq.eu/tracker/project-146-trimlinks/) znajdujÄ…cym na oficjalnym forum komunikatora AQQ lub piszÄ…c bezpoÅ›rednio do autora wtyczki (preferowany kontakt poprzez Jabber).
+Znalezione b³êdy wtyczki nale¿y zg³aszaæ na [tracekerze](http://forum.aqq.eu/tracker/project-146-trimlinks/) znajduj¹cym na oficjalnym forum komunikatora AQQ lub pisz¹c bezpoœrednio do autora wtyczki (preferowany kontakt poprzez Jabber).
 
 Kontakt z autorem
 -------
-Autorem wtyczki TrimLinks jest Krzysztof Grochocki. MoÅ¼esz skontaktowaÄ‡ siÄ™ z nim drogÄ… mailowÄ… (kontakt@beherit.pl) lub poprzez Jabber (beherit@aqq.eu).
+Autorem wtyczki TrimLinks jest Krzysztof Grochocki. Mo¿esz skontaktowaæ siê z nim drog¹ mailow¹ (kontakt@beherit.pl) lub poprzez Jabber (im@beherit.pl).
 
 Licencja
 -------
-Wtyczka TrimLinks objÄ™ta jest licencjÄ… [GNU General Public License 3](http://www.gnu.org/copyleft/gpl.html).
+Wtyczka TrimLinks objêta jest licencj¹ [GNU General Public License 3](http://www.gnu.org/copyleft/gpl.html).
 
     TrimLinks
     Copyright (C) 2012-2014  Krzysztof Grochocki
