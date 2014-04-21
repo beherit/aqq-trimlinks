@@ -1,26 +1,26 @@
 1.3.2.0
 -----
-* Poprawki w procesie ≥adowania wtyczki.
+* Poprawki w procesie ≈Çadowania wtyczki.
 * Inne drobne poprawki.
 
 1.3.1.0
 -----
-* Drobne poprawki w zapisywaniu do cache tytu≥Ûw filmÛw z YouTube.
-* Aktualizacja komponentÛw AlphaControls do nowszej wersji (8.53).
+* Drobne poprawki w zapisywaniu do cache tytu≈Ç√≥w film√≥w z YouTube.
+* Aktualizacja komponent√≥w AlphaControls do nowszej wersji (8.53).
 
 1.3.0.0
 -----
-* Forma ustawieÒ z moøliwoúciπ wy≥πczenia skracania odnoúnikÛw dla wiadomoúci lub opisÛw kontaktÛw.
-* Pobieranie tytu≥Ûw filmikÛw z YouTube dla opisÛw kontaktÛw.
-* Spore zmiany w funkcji skracania odnoúnikÛw.
-* Inne mniej waøne zmiany w kodzie.
-* Kompilacja pod poprawionymi nag≥Ûwkami dla wersji 64-bitowej.
-* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez uøycie kompresji LZMA.
+* Forma ustawie≈Ñ z mo≈ºliwo≈õciƒÖ wy≈ÇƒÖczenia skracania odno≈õnik√≥w dla wiadomo≈õci lub opis√≥w kontakt√≥w.
+* Pobieranie tytu≈Ç√≥w filmik√≥w z YouTube dla opis√≥w kontakt√≥w.
+* Spore zmiany w funkcji skracania odno≈õnik√≥w.
+* Inne mniej wa≈ºne zmiany w kodzie.
+* Kompilacja pod poprawionymi nag≈Ç√≥wkami dla wersji 64-bitowej.
+* Zmniejszenie rozmiaru wtyczki 64-bitowej poprzez u≈ºycie kompresji LZMA.
 
 1.2.1.0
 -----
-* Wtyczka posiada w≥asnπ ikonÍ pokazywanπ w ustawieniach komunikatora na liúcie wtyczek.
-* Zmniejszenie rozmiaru wtyczki 32-bitowej poprzez uøycie kompresji LZMA.
+* Wtyczka posiada w≈ÇasnƒÖ ikonƒô pokazywanƒÖ w ustawieniach komunikatora na li≈õcie wtyczek.
+* Zmniejszenie rozmiaru wtyczki 32-bitowej poprzez u≈ºycie kompresji LZMA.
 * Brak kompresji wtyczki 64-bitowej.
 
 1.2.0.0
@@ -29,7 +29,7 @@
 
 1.1.1.0
 -----
-* Drobne poprawki w procesie wy≥adowania wtyczki.
+* Drobne poprawki w procesie wy≈Çadowania wtyczki.
 
 1.1.0.0
 -----
@@ -37,11 +37,11 @@
 
 1.0.2.0
 -----
-* Odúwieøanie listy kontaktÛw przy wy≥adowaniu wtyczki nie dzia≥a przy wy≥πczaniu komunikatora.
+* Od≈õwie≈ºanie listy kontakt√≥w przy wy≈Çadowaniu wtyczki nie dzia≈Ça przy wy≈ÇƒÖczaniu komunikatora.
 
 1.0.1.0
 -----
-* Nieodúwieøanie listy kontaktÛw przy zamykaniu komunikatora.
+* Nieod≈õwie≈ºanie listy kontakt√≥w przy zamykaniu komunikatora.
 
 1.0.0.0
 -----
