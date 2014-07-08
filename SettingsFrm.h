@@ -74,6 +74,7 @@ __published:	// IDE-managed Components
 	void __fastcall OkButtonClick(TObject *Sender);
 	void __fastcall aSaveSettingsWExecute(TObject *Sender);
 	void __fastcall aAllowSaveExecute(TObject *Sender);
+	void __fastcall sSkinManagerSysDlgInit(TacSysDlgData DlgData, bool &AllowSkinning);
 private:	// User declarations
 	void __fastcall WMTransparency(TMessage &Message);
 	UnicodeString __fastcall IdHTTPGet(UnicodeString URL);
