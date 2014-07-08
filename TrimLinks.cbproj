@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{DD869E96-7AA3-4F1A-A9B8-6B360CEB0177}</ProjectGuid>
-        <ProjectVersion>15.1</ProjectVersion>
+        <ProjectGuid>{4910465F-850E-4DD3-B9E5-83F1C479C1FD}</ProjectGuid>
+        <ProjectVersion>15.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Release</Config>
@@ -57,18 +57,16 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <VerInfo_Release>2</VerInfo_Release>
-        <VerInfo_MinorVer>3</VerInfo_MinorVer>
-        <VerInfo_Locale>1045</VerInfo_Locale>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <_TCHARMapping>wchar_t</_TCHARMapping>
         <Manifest_File>None</Manifest_File>
-        <ProjectType>VCppStyleDll</ProjectType>
+        <AllPackageLibs>rtl.lib;vcl.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib;acnt_R.lib;vclimg.lib;vclx.lib;xmlrtl.lib</AllPackageLibs>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
-        <AllPackageLibs>rtl.lib;vcl.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib;xmlrtl.lib;acntXE5_R.lib;vclimg.lib;vclx.lib</AllPackageLibs>
+        <VerInfo_Locale>1045</VerInfo_Locale>
         <Multithreaded>true</Multithreaded>
-        <VerInfo_Keys>FileVersion=1.3.2.0;LegalCopyright=Krzysztof Grochocki;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <SanitizedProjectName>TrimLinks</SanitizedProjectName>
+        <_TCHARMapping>wchar_t</_TCHARMapping>
+        <ILINK_GenerateImportLibrary>true</ILINK_GenerateImportLibrary>
+        <VerInfo_Keys>FileVersion=1.0.0.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <ProjectType>VCppStyleDll</ProjectType>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <IntermediateOutputDir>.\$(Platform)\$(Config)</IntermediateOutputDir>
         <FinalOutputDir>.\$(Platform)\$(Config)</FinalOutputDir>
@@ -78,18 +76,30 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <PackageImports>bindcompfmx;vcldbx;fmx;rtl;dbrtl;IndySystem;TeeDB;bindcomp;inetdb;vclib;inetdbbde;DBXInterBaseDriver;Tee;DataSnapCommon;xmlrtl;ibxpress;DbxCommonDriver;vclimg;IndyProtocols;dbxcds;MetropolisUILiveTile;soaprtl;vclactnband;bindengine;vcldb;bindcompdbx;vcldsnap;bindcompvcl;FMXTee;TeeUI;vclie;vcltouch;bcbsmp;websnap;CustomIPTransport;vclribbon;dsnap;IndyIPServer;fmxase;vcl;IndyCore;IndyIPCommon;CodeSiteExpressPkg;dsnapcon;FmxTeeUI;inet;fmxobj;vclx;inetdbxpress;webdsnap;fmxdae;bdertl;dbexpress;bcbie;adortl;IndyIPClient;$(PackageImports)</PackageImports>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Release>3</VerInfo_Release>
+        <PackageImports>acnt_R;adortl;bcbie;bcbsmp;bdertl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbbde;inetdbxpress;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldbx;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <BCC_PCHName_Clang>TrimLinks.h</BCC_PCHName_Clang>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
+        <PackageImports>acnt_R;adortl;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CustomIPTransport;DataSnapFireDAC;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXInterBaseDriver;DBXMySQLDriver;DBXSqliteDriver;dsnap;dsnapcon;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee;FmxTeeUI;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;Tee;TeeDB;TeeUI;tethering;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
+        <VerInfo_Release>3</VerInfo_Release>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <BCC_OptimizeForSpeed>false</BCC_OptimizeForSpeed>
         <BCC_DisableOptimizations>true</BCC_DisableOptimizations>
         <DCC_Optimize>false</DCC_Optimize>
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+        <Defines>_DEBUG;$(Defines)</Defines>
         <BCC_InlineFunctionExpansion>false</BCC_InlineFunctionExpansion>
         <BCC_UseRegisterVariables>None</BCC_UseRegisterVariables>
         <DCC_Define>DEBUG</DCC_Define>
@@ -107,24 +117,37 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <Defines>_DEBUG;$(Defines)</Defines>
+        <ILINK_LibraryPath>$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Release>3</VerInfo_Release>
         <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win64)'!=''">
-        <Defines>_DEBUG;$(Defines)</Defines>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Release>3</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
-        <VerInfo_MinorVer>3</VerInfo_MinorVer>
-        <VerInfo_Release>2</VerInfo_Release>
-        <VerInfo_Keys>FileVersion=1.3.2.0;LegalCopyright=Krzysztof Grochocki;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <Defines>NDEBUG;$(Defines)</Defines>
-        <LinkPackageStatics>rtl.lib;vcl.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib;xmlrtl.lib;acntXE5_R.lib;vclimg.lib;vclx.lib</LinkPackageStatics>
+        <ILINK_LibraryPath>C:\Users\Public\Documents\Embarcadero\Studio\14.0\DCP\;$(BDS)\lib\win32\release\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Release>3</VerInfo_Release>
+        <LinkPackageStatics>rtl.lib;vcl.lib;IndyProtocols.lib;IndyCore.lib;IndySystem.lib;acnt_R.lib;vclimg.lib;vclx.lib;xmlrtl.lib</LinkPackageStatics>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <Defines>NDEBUG;$(Defines)</Defines>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_MinorVer>3</VerInfo_MinorVer>
+        <BCC_PCHName_Clang>TrimLinks.h</BCC_PCHName_Clang>
+        <VerInfo_Keys>FileVersion=1.3.3.0;ProductName=TrimLinks;ProductVersion=1.0.0.0;CompanyName=Beherit Development;LegalCopyright=Krzysztof Grochocki;LegalTrademarks=Krzysztof Grochocki</VerInfo_Keys>
+        <VerInfo_Release>3</VerInfo_Release>
     </PropertyGroup>
     <ItemGroup>
         <RcItem Include="Data\TrimLinks.dll.png">
@@ -161,51 +184,17 @@
         <Borland.ProjectType>VCppStyleDll</Borland.ProjectType>
         <BorlandProject>
             <CPlusPlusBuilder.Personality>
-                <VersionInfo>
-                    <VersionInfo Name="IncludeVerInfo">False</VersionInfo>
-                    <VersionInfo Name="AutoIncBuild">False</VersionInfo>
-                    <VersionInfo Name="MajorVer">1</VersionInfo>
-                    <VersionInfo Name="MinorVer">0</VersionInfo>
-                    <VersionInfo Name="Release">0</VersionInfo>
-                    <VersionInfo Name="Build">0</VersionInfo>
-                    <VersionInfo Name="Debug">False</VersionInfo>
-                    <VersionInfo Name="PreRelease">False</VersionInfo>
-                    <VersionInfo Name="Special">False</VersionInfo>
-                    <VersionInfo Name="Private">False</VersionInfo>
-                    <VersionInfo Name="DLL">False</VersionInfo>
-                    <VersionInfo Name="Locale">1045</VersionInfo>
-                    <VersionInfo Name="CodePage">1250</VersionInfo>
-                </VersionInfo>
-                <VersionInfoKeys>
-                    <VersionInfoKeys Name="CompanyName"/>
-                    <VersionInfoKeys Name="FileDescription"/>
-                    <VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys>
-                    <VersionInfoKeys Name="InternalName"/>
-                    <VersionInfoKeys Name="LegalCopyright"/>
-                    <VersionInfoKeys Name="LegalTrademarks"/>
-                    <VersionInfoKeys Name="OriginalFilename"/>
-                    <VersionInfoKeys Name="ProductName"/>
-                    <VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
-                    <VersionInfoKeys Name="Comments"/>
-                    <VersionInfoKeys Name="CFBundleName"/>
-                    <VersionInfoKeys Name="CFBundleDisplayName"/>
-                    <VersionInfoKeys Name="CFBundleIdentifier"/>
-                    <VersionInfoKeys Name="CFBundleVersion"/>
-                    <VersionInfoKeys Name="CFBundlePackageType"/>
-                    <VersionInfoKeys Name="CFBundleSignature"/>
-                    <VersionInfoKeys Name="CFBundleAllowMixedLocalizations"/>
-                    <VersionInfoKeys Name="CFBundleExecutable"/>
-                </VersionInfoKeys>
                 <ProjectProperties>
                     <ProjectProperties Name="AutoShowDeps">False</ProjectProperties>
                     <ProjectProperties Name="ManagePaths">True</ProjectProperties>
                     <ProjectProperties Name="VerifyPackages">True</ProjectProperties>
+                    <ProjectProperties Name="IndexFiles">False</ProjectProperties>
                 </ProjectProperties>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k170.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp170.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k170.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp170.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcboffice2k200.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\bcbofficexp200.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k200.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp200.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
             </CPlusPlusBuilder.Personality>
             <Deployment/>
