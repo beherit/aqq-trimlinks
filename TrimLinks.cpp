@@ -314,6 +314,8 @@ UnicodeString TrimLinks(UnicodeString Body, bool Status)
 	  //Wyciagnieto prawidlowo nazwe domeny z adresu URL
 	  if(!Domain.IsEmpty())
 	  {
+		//Usuniecie subdomeny WWW
+		if(Domain.LowerCase().Pos("www.")) Domain.Delete(Domain.LowerCase().Pos("www."),Domain.LowerCase().Pos("www.")+3);
 		//Odnosnik z parametrem title
 		if(URL.Pos("title="))
 		 Body = StringReplace(Body, "\">" + Text, "\">[" + Domain + "]", TReplaceFlags());
