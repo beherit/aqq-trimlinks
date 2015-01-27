@@ -1,4 +1,5 @@
 object SettingsForm: TSettingsForm
+  Tag = 1
   Left = 0
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
@@ -165,6 +166,7 @@ object SettingsForm: TSettingsForm
     ExplicitWidth = 776
   end
   object sLabel1: TsLabel
+    Tag = 5
     Left = 12
     Top = 12
     Width = 279
@@ -172,6 +174,7 @@ object SettingsForm: TSettingsForm
     Caption = 'Skracaj wy'#347'wietlanie odno'#347'nik'#243'w do wygodniejszej formy:'
   end
   object OkButton: TsButton
+    Tag = 4
     Left = 58
     Top = 93
     Width = 75
@@ -184,6 +187,7 @@ object SettingsForm: TSettingsForm
     SkinData.SkinSection = 'BUTTON'
   end
   object CancelButton: TsButton
+    Tag = 3
     Left = 139
     Top = 93
     Width = 75
@@ -196,6 +200,7 @@ object SettingsForm: TSettingsForm
     SkinData.SkinSection = 'BUTTON'
   end
   object SaveButton: TsButton
+    Tag = 2
     Left = 220
     Top = 93
     Width = 75
@@ -209,6 +214,7 @@ object SettingsForm: TSettingsForm
     SkinData.SkinSection = 'BUTTON'
   end
   object MessagesCheckBox: TsCheckBox
+    Tag = 6
     Left = 16
     Top = 31
     Width = 102
@@ -223,6 +229,7 @@ object SettingsForm: TSettingsForm
     ImgUnchecked = 0
   end
   object StatusCheckBox: TsCheckBox
+    Tag = 7
     Left = 16
     Top = 57
     Width = 120
