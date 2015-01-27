@@ -1,3 +1,10 @@
+1.4.0.0
+-----
+* Obsługa lokalizacji (polskiej i angielskiej).
+* Zmiana priorytetów w funkcji skracania odnośników.
+* Usuwanie subdomeny WWW przy skracaniu odnośników.
+* Aktualizacja komponentów AlphaControls do nowszej wersji (9.19).
+
 1.3.3.0
 -----
 * Nieskórkowanie systemowych okien dialogowych niepochodzących z wtyczki.
