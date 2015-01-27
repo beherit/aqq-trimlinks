@@ -21,12 +21,12 @@
 
 #include <vcl.h>
 #include <windows.h>
-#pragma hdrstop
-#pragma argsused
-#include <PluginAPI.h>
-#include "SettingsFrm.h"
 #include <inifiles.hpp>
 #include <IdHashMessageDigest.hpp>
+#include <PluginAPI.h>
+#include <LangAPI.hpp>
+#pragma hdrstop
+#include "SettingsFrm.h"
 
 int WINAPI DllEntryPoint(HINSTANCE hinst, unsigned long reason, void* lpReserved)
 {
@@ -58,6 +58,7 @@ bool TrimStatus = true;
 INT_PTR __stdcall OnAddLine(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnBeforeUnload(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam);
+INT_PTR __stdcall OnLangCodeChanged(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnSetHTMLStatus(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnThemeChanged(WPARAM wParam, LPARAM lParam);
 INT_PTR __stdcall OnWindowEvent(WPARAM wParam, LPARAM lParam);
@@ -279,10 +280,10 @@ UnicodeString TrimLinks(UnicodeString Body, bool Status)
 		  if(!hSettingsForm->GetYouTubeTitleThread->Active) hSettingsForm->GetYouTubeTitleThread->Start();
           //Odnosnik z parametrem title
 		  if(URL.Pos("title="))
-		   Body = StringReplace(Body, "\">" + Text, "\">[Pobieranie tytu³u...]", TReplaceFlags());
+		   Body = StringReplace(Body, "\">" + Text, "\">["+GetLangStr("YouTubeTemp")+"...]", TReplaceFlags());
 		  //Odnosnik bez parametru title
 		  else
-		   Body = StringReplace(Body, "\">" + Text, "\" title=\"" + Text + "\">[Pobieranie tytu³u...]", TReplaceFlags());
+		   Body = StringReplace(Body, "\">" + Text, "\" title=\"" + Text + "\">["+GetLangStr("YouTubeTemp")+"...]", TReplaceFlags());
 		}
 	  }
 	  //Przejscie do normalnego skracana linkow
@@ -386,6 +387,29 @@ INT_PTR __stdcall OnColorChange(WPARAM wParam, LPARAM lParam)
 	  }
 	}
   }
+
+  return 0;
+}
+//---------------------------------------------------------------------------
+
+//Hook na zmiane lokalizacji
+INT_PTR __stdcall OnLangCodeChanged(WPARAM wParam, LPARAM lParam)
+{
+  //Czyszczenie cache lokalizacji
+  ClearLngCache();
+  //Pobranie sciezki do katalogu prywatnego uzytkownika
+  UnicodeString PluginUserDir = GetPluginUserDir();
+  //Ustawienie sciezki lokalizacji wtyczki
+  UnicodeString LangCode = (wchar_t*)lParam;
+  LangPath = PluginUserDir + "\\\\Languages\\\\TrimLinks\\\\" + LangCode + "\\\\";
+  if(!DirectoryExists(LangPath))
+  {
+	LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETDEFLANGCODE,0,0);
+	LangPath = PluginUserDir + "\\\\Languages\\\\TrimLinks\\\\" + LangCode + "\\\\";
+  }
+  //Aktualizacja lokalizacji form wtyczki
+  for(int i=0;i<Screen->FormCount;i++)
+   LangForm(Screen->Forms[i]);
 
   return 0;
 }
@@ -547,13 +571,46 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
   LoadExecuted = true;
   //Linkowanie wtyczki z komunikatorem
   PluginLink = *Link;
-   //Pobranie sciezki do katalogu prywatnego uzytkownika
+  //Pobranie sciezki do katalogu prywatnego uzytkownika
   UnicodeString PluginUserDir = GetPluginUserDir();
-  //Pobranie sciezki do pliku sesji
-  SessionFileDir = PluginUserDir + "\\\\TrimLinks\\\\Session.ini";
-  //Folder z ustawieniami wtyczki
-  if(!DirectoryExists(PluginUserDir + "\\\\TrimLinks"))
-   CreateDir(PluginUserDir + "\\\\TrimLinks");
+  //Tworzenie katalogow lokalizacji
+  if(!DirectoryExists(PluginUserDir+"\\\\Languages"))
+   CreateDir(PluginUserDir+"\\\\Languages");
+  if(!DirectoryExists(PluginUserDir+"\\\\Languages\\\\TrimLinks"))
+   CreateDir(PluginUserDir+"\\\\Languages\\\\TrimLinks");
+  if(!DirectoryExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN"))
+   CreateDir(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN");
+  if(!DirectoryExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL"))
+   CreateDir(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL");
+  //Wypakowanie plikow lokalizacji
+  //547FCF355947EB7F9482BA268D77B0AB
+  if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\Const.lng"))
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\Const.lng").w_str(),L"EN_CONST",L"DATA");
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\Const.lng")!="547FCF355947EB7F9482BA268D77B0AB")
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\Const.lng").w_str(),L"EN_CONST",L"DATA");
+  //21B9321BBABC5EAFAFF79EDE6B7E5B2B
+  if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng"))
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng").w_str(),L"EN_SETTINGSFRM",L"DATA");
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng")!="21B9321BBABC5EAFAFF79EDE6B7E5B2B")
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng").w_str(),L"EN_SETTINGSFRM",L"DATA");
+  //344D8C0A83873A0CFF295D3989715237
+  if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng"))
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng").w_str(),L"PL_CONST",L"DATA");
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng")!="344D8C0A83873A0CFF295D3989715237")
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng").w_str(),L"PL_CONST",L"DATA");
+  //B00C5233E2C3746F56AF90EAD5D963DF
+  if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng"))
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng").w_str(),L"PL_SETTINGSFRM",L"DATA");
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng")!="B00C5233E2C3746F56AF90EAD5D963DF")
+   ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng").w_str(),L"PL_SETTINGSFRM",L"DATA");
+  //Ustawienie sciezki lokalizacji wtyczki
+  UnicodeString LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETLANGCODE,0,0);
+  LangPath = PluginUserDir + "\\\\Languages\\\\TrimLinks\\\\" + LangCode + "\\\\";
+  if(!DirectoryExists(LangPath))
+  {
+	LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETDEFLANGCODE,0,0);
+	LangPath = PluginUserDir + "\\\\Languages\\\\TrimLinks\\\\" + LangCode + "\\\\";
+  }
   //Wypakiwanie ikonki TrimLinks.dll.png
   //AE97BBAABA1C385A8FD93D66723653DE
   if(!DirectoryExists(PluginUserDir+"\\\\Shared"))
@@ -562,6 +619,11 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
    ExtractRes((PluginUserDir+"\\\\Shared\\\\TrimLinks.dll.png").w_str(),L"SHARED",L"DATA");
   else if(MD5File(PluginUserDir+"\\\\Shared\\\\TrimLinks.dll.png")!="AE97BBAABA1C385A8FD93D66723653DE")
    ExtractRes((PluginUserDir+"\\\\Shared\\\\TrimLinks.dll.png").w_str(),L"SHARED",L"DATA");
+  //Pobranie sciezki do pliku sesji
+  SessionFileDir = PluginUserDir + "\\\\TrimLinks\\\\Session.ini";
+  //Folder z ustawieniami wtyczki
+  if(!DirectoryExists(PluginUserDir + "\\\\TrimLinks"))
+   CreateDir(PluginUserDir + "\\\\TrimLinks");
   //Wczytanie ustawien
   LoadSettings();
   //Hook na pokazywane wiadomosci
@@ -570,6 +632,8 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
   PluginLink.HookEvent(AQQ_SYSTEM_BEFOREUNLOAD,OnBeforeUnload);
   //Hook na zmiane kolorystyki AlphaControls
   PluginLink.HookEvent(AQQ_SYSTEM_COLORCHANGE,OnColorChange);
+  //Hook na zmiane lokalizacji
+  PluginLink.HookEvent(AQQ_SYSTEM_LANGCODE_CHANGED,OnLangCodeChanged);
   //Hook na zmiane widocznego opisu kontatku na liscie kontatkow
   PluginLink.HookEvent(AQQ_CONTACTS_SETHTMLSTATUS,OnSetHTMLStatus);
   //Hook na zmiane kompozycji
@@ -594,6 +658,7 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Unload()
   PluginLink.UnhookEvent(OnAddLine);
   PluginLink.UnhookEvent(OnBeforeUnload);
   PluginLink.UnhookEvent(OnColorChange);
+  PluginLink.UnhookEvent(OnLangCodeChanged);
   PluginLink.UnhookEvent(OnSetHTMLStatus);
   PluginLink.UnhookEvent(OnThemeChanged);
   PluginLink.UnhookEvent(OnWindowEvent);

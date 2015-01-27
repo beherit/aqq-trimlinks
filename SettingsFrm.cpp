@@ -21,10 +21,11 @@
 
 //---------------------------------------------------------------------------
 #include <vcl.h>
-#pragma hdrstop
-#include "SettingsFrm.h"
 #include <inifiles.hpp>
 #include <XMLDoc.hpp>
+#include <LangAPI.hpp>
+#pragma hdrstop
+#include "SettingsFrm.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "sBevel"
@@ -106,6 +107,8 @@ UnicodeString __fastcall TSettingsForm::IdHTTPGet(UnicodeString URL)
 
 void __fastcall TSettingsForm::FormCreate(TObject *Sender)
 {
+  //Lokalizowanie formy
+  LangForm(this);
   //Wlaczona zaawansowana stylizacja okien
   if(ChkSkinEnabled())
   {
