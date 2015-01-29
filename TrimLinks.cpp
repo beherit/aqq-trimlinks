@@ -601,15 +601,15 @@ extern "C" INT_PTR __declspec(dllexport) __stdcall Load(PPluginLink Link)
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng").w_str(),L"EN_SETTINGSFRM",L"DATA");
   else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng")!="21B9321BBABC5EAFAFF79EDE6B7E5B2B")
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\EN\\\\TSettingsForm.lng").w_str(),L"EN_SETTINGSFRM",L"DATA");
-  //344D8C0A83873A0CFF295D3989715237
+  //FCDFE35C524D53FE8F73D2FAA4DD3B80
   if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng"))
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng").w_str(),L"PL_CONST",L"DATA");
-  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng")!="344D8C0A83873A0CFF295D3989715237")
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng")!="FCDFE35C524D53FE8F73D2FAA4DD3B80")
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\Const.lng").w_str(),L"PL_CONST",L"DATA");
-  //B00C5233E2C3746F56AF90EAD5D963DF
+  //CF18B7B4F3663892A5FDEB4E3E364115
   if(!FileExists(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng"))
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng").w_str(),L"PL_SETTINGSFRM",L"DATA");
-  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng")!="B00C5233E2C3746F56AF90EAD5D963DF")
+  else if(MD5File(PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng")!="CF18B7B4F3663892A5FDEB4E3E364115")
    ExtractRes((PluginUserDir+"\\\\Languages\\\\TrimLinks\\\\PL\\\\TSettingsForm.lng").w_str(),L"PL_SETTINGSFRM",L"DATA");
   //Ustawienie sciezki lokalizacji wtyczki
   UnicodeString LangCode = (wchar_t*)PluginLink.CallService(AQQ_FUNCTION_GETLANGCODE,0,0);
