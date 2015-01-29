@@ -1,3 +1,8 @@
+1.4.1.0
+-----
+* Pełne wsparcie kolorystyki stylizacji okien.
+* Zmiana kodowania plików polskiej lokalizacji.
+
 1.4.0.0
 -----
 * Obsługa lokalizacji (polskiej i angielskiej).
