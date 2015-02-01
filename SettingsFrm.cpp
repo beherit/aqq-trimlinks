@@ -61,203 +61,201 @@ __fastcall TSettingsForm::TSettingsForm(TComponent* Owner)
 
 void __fastcall TSettingsForm::WMTransparency(TMessage &Message)
 {
-  Application->ProcessMessages();
-  if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true,(int)Message.LParam);
+	Application->ProcessMessages();
+	if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true,(int)Message.LParam);
 }
 //---------------------------------------------------------------------------
 
 //Pobieranie danych z danego URL
 UnicodeString __fastcall TSettingsForm::IdHTTPGet(UnicodeString URL)
 {
-  //Zmienna z danymi
-  UnicodeString ResponseText;
-  //Proba pobrania danych
-  try
-  {
-	//Wywolanie polaczenia
-	ResponseText = IdHTTP->Get(URL);
-  }
-  //Blad
-  catch(const Exception& e)
-  {
-	//Hack na wywalanie sie IdHTTP
-	if(e.Message=="Connection Closed Gracefully.")
+	//Zmienna z danymi
+	UnicodeString ResponseText;
+	//Proba pobrania danych
+	try
 	{
-	  //Hack
-	  IdHTTP->CheckForGracefulDisconnect(false);
-	  //Rozlaczenie polaczenia
-	  IdHTTP->Disconnect();
+		//Wywolanie polaczenia
+		ResponseText = IdHTTP->Get(URL);
 	}
+	//Blad
+	catch(const Exception& e)
+	{
+		//Hack na wywalanie sie IdHTTP
+		if(e.Message=="Connection Closed Gracefully.")
+		{
+			//Hack
+			IdHTTP->CheckForGracefulDisconnect(false);
+			//Rozlaczenie polaczenia
+			IdHTTP->Disconnect();
+		}
+		//Inne bledy
+		else
+			//Rozlaczenie polaczenia
+			IdHTTP->Disconnect();
+		//Zwrot pustych danych
+		return "";
+	}
+	//Pobranie kodu odpowiedzi
+	int Response = IdHTTP->ResponseCode;
+	//Wszystko ok
+	if(Response==200) return ResponseText;
 	//Inne bledy
-	else
-	 //Rozlaczenie polaczenia
-	 IdHTTP->Disconnect();
-	//Zwrot pustych danych
-	return "";
-  }
-  //Pobranie kodu odpowiedzi
-  int Response = IdHTTP->ResponseCode;
-  //Wszystko ok
-  if(Response==200)
-   return ResponseText;
-  //Inne bledy
-  else
-   return "";
+	else return "";
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::FormCreate(TObject *Sender)
 {
-  //Lokalizowanie formy
-  LangForm(this);
-  //Wlaczona zaawansowana stylizacja okien
-  if(ChkSkinEnabled())
-  {
-	UnicodeString ThemeSkinDir = GetThemeSkinDir();
-	//Plik zaawansowanej stylizacji okien istnieje
-	if(FileExists(ThemeSkinDir + "\\\\Skin.asz"))
+	//Lokalizowanie formy
+	LangForm(this);
+	//Wlaczona zaawansowana stylizacja okien
+	if(ChkSkinEnabled())
 	{
-	  //Dane pliku zaawansowanej stylizacji okien
-	  ThemeSkinDir = StringReplace(ThemeSkinDir, "\\\\", "\\", TReplaceFlags() << rfReplaceAll);
-	  sSkinManager->SkinDirectory = ThemeSkinDir;
-	  sSkinManager->SkinName = "Skin.asz";
-	  //Ustawianie animacji AlphaControls
-	  if(ChkThemeAnimateWindows()) sSkinManager->AnimEffects->FormShow->Time = 200;
-	  else sSkinManager->AnimEffects->FormShow->Time = 0;
-	  sSkinManager->Effects->AllowGlowing = ChkThemeGlowing();
-	  //Zmiana kolorystyki AlphaControls
-	  sSkinManager->HueOffset = GetHUE();
-	  sSkinManager->Saturation = GetSaturation();
-	  sSkinManager->Brightness = GetBrightness();
-      //Aktywacja skorkowania AlphaControls
-	  sSkinManager->Active = true;
+		UnicodeString ThemeSkinDir = GetThemeSkinDir();
+		//Plik zaawansowanej stylizacji okien istnieje
+		if(FileExists(ThemeSkinDir + "\\\\Skin.asz"))
+		{
+			//Dane pliku zaawansowanej stylizacji okien
+			ThemeSkinDir = StringReplace(ThemeSkinDir, "\\\\", "\\", TReplaceFlags() << rfReplaceAll);
+			sSkinManager->SkinDirectory = ThemeSkinDir;
+			sSkinManager->SkinName = "Skin.asz";
+			//Ustawianie animacji AlphaControls
+			if(ChkThemeAnimateWindows()) sSkinManager->AnimEffects->FormShow->Time = 200;
+			else sSkinManager->AnimEffects->FormShow->Time = 0;
+			sSkinManager->Effects->AllowGlowing = ChkThemeGlowing();
+			//Zmiana kolorystyki AlphaControls
+			sSkinManager->HueOffset = GetHUE();
+			sSkinManager->Saturation = GetSaturation();
+			sSkinManager->Brightness = GetBrightness();
+			//Aktywacja skorkowania AlphaControls
+			sSkinManager->Active = true;
+		}
+		//Brak pliku zaawansowanej stylizacji okien
+		else sSkinManager->Active = false;
 	}
-	//Brak pliku zaawansowanej stylizacji okien
+	//Zaawansowana stylizacja okien wylaczona
 	else sSkinManager->Active = false;
-  }
-  //Zaawansowana stylizacja okien wylaczona
-  else sSkinManager->Active = false;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::FormShow(TObject *Sender)
 {
-  //Odczyt ustawien
-  aLoadSettings->Execute();
-  //Wylaczenie przycisku
-  SaveButton->Enabled = false;
-  //Ustawienie fokusa na przycisku
-  CancelButton->SetFocus();
+	//Odczyt ustawien
+	aLoadSettings->Execute();
+	//Wylaczenie przycisku
+	SaveButton->Enabled = false;
+	//Ustawienie fokusa na przycisku
+	CancelButton->SetFocus();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::aLoadSettingsExecute(TObject *Sender)
 {
-  //Odczyt ustawien
-  TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
-  MessagesCheckBox->Checked = Ini->ReadBool("Trim","Messages",true);
-  StatusCheckBox->Checked  = Ini->ReadBool("Trim","Status",true);
-  delete Ini;
+	//Odczyt ustawien
+	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
+	MessagesCheckBox->Checked = Ini->ReadBool("Trim","Messages",true);
+	StatusCheckBox->Checked	= Ini->ReadBool("Trim","Status",true);
+	delete Ini;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::aSaveSettingsExecute(TObject *Sender)
 {
-  //Zapisywanie ustawien
-  TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
-  Ini->WriteBool("Trim","Messages",MessagesCheckBox->Checked);
-  Ini->WriteBool("Trim","Status",StatusCheckBox->Checked);
-  delete Ini;
+	//Zapisywanie ustawien
+	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
+	Ini->WriteBool("Trim","Messages",MessagesCheckBox->Checked);
+	Ini->WriteBool("Trim","Status",StatusCheckBox->Checked);
+	delete Ini;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::aSaveSettingsWExecute(TObject *Sender)
 {
-  //Status przyciskow
-  SaveButton->Enabled = false;
-  CancelButton->Enabled = false;
-  OkButton->Enabled = false;
-  //Zapisywanie ustawien
-  aSaveSettings->Execute();
-  //Odczytywanie ustawien w rdzeniu wtyczki
-  LoadSettings();
-  //Status przyciskow
-  CancelButton->Enabled = true;
-  OkButton->Enabled = true;
+	//Status przyciskow
+	SaveButton->Enabled = false;
+	CancelButton->Enabled = false;
+	OkButton->Enabled = false;
+	//Zapisywanie ustawien
+	aSaveSettings->Execute();
+	//Odczytywanie ustawien w rdzeniu wtyczki
+	LoadSettings();
+	//Status przyciskow
+	CancelButton->Enabled = true;
+	OkButton->Enabled = true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::aExitExecute(TObject *Sender)
 {
-  Close();
+	Close();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::OkButtonClick(TObject *Sender)
 {
-  aSaveSettingsW->Execute();
-  Close();
+	aSaveSettingsW->Execute();
+	Close();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::GetYouTubeTitleThreadRun(TIdThreadComponent *Sender)
 {
-  //Pobranie itemu z listy ID do przetworzenia
-  UnicodeString ID = GetYouTubeTitleListItem();
-  //Jest jakis ID do przetworzenia
-  if(!ID.IsEmpty())
-  {
-	//Pobieranie tytulu
-	UnicodeString XML = IdHTTPGet("http://gdata.youtube.com/feeds/api/videos/"+ID+"?fields=title");
-	//Parsowanie pliku XML
-	if(!XML.IsEmpty())
+	//Pobranie itemu z listy ID do przetworzenia
+	UnicodeString ID = GetYouTubeTitleListItem();
+	//Jest jakis ID do przetworzenia
+	if(!ID.IsEmpty())
 	{
-	  _di_IXMLDocument XMLDoc = LoadXMLData(XML);
-	  _di_IXMLNode MainNode = XMLDoc->DocumentElement;
-	  _di_IXMLNode ChildNode = MainNode->ChildNodes->GetNode(0);
-	  UnicodeString Title = ChildNode->GetText();
-	  //Zapisywanie tytulu do cache
-	  if(!Title.IsEmpty())
-	  {
-		TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Session.ini");
-		Ini->WriteString("YouTube",ConvertToInt(ID),EncodeBase64(Title));
-		delete Ini;
-	  }
-	  //Blokowanie wskaznego ID na czas sesji
-	  else AddToYouTubeExcludeList(ID);
+		//Pobieranie tytulu
+		UnicodeString XML = IdHTTPGet("http://gdata.youtube.com/feeds/api/videos/"+ID+"?fields=title");
+		//Parsowanie pliku XML
+		if(!XML.IsEmpty())
+		{
+			_di_IXMLDocument XMLDoc = LoadXMLData(XML);
+			_di_IXMLNode MainNode = XMLDoc->DocumentElement;
+			_di_IXMLNode ChildNode = MainNode->ChildNodes->GetNode(0);
+			UnicodeString Title = ChildNode->GetText();
+			//Zapisywanie tytulu do cache
+			if(!Title.IsEmpty())
+			{
+				TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Session.ini");
+				Ini->WriteString("YouTube",ConvertToInt(ID),EncodeBase64(Title));
+				delete Ini;
+			}
+			//Blokowanie wskaznego ID na czas sesji
+			else AddToYouTubeExcludeList(ID);
+		}
+		//Blokowanie wskaznego ID na czas sesji
+		else AddToYouTubeExcludeList(ID);
 	}
-	//Blokowanie wskaznego ID na czas sesji
-	else AddToYouTubeExcludeList(ID);
-  }
-  //Brak itemow do przetworzenia
-  if(!ChkYouTubeListItem())
-  {
-	//Zatrzymanie watku
-	GetYouTubeTitleThread->Stop();
-	//Wlaczenie timera
-	RefreshTimer->Enabled = true;
-  }
+	//Brak itemow do przetworzenia
+	if(!ChkYouTubeListItem())
+	{
+		//Zatrzymanie watku
+		GetYouTubeTitleThread->Stop();
+		//Wlaczenie timera
+		RefreshTimer->Enabled = true;
+	}
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::RefreshTimerTimer(TObject *Sender)
 {
-  //Wylaczenie timera
-  RefreshTimer->Enabled = false;
-  //Odswiezenie listy kontaktow
-  RefreshList();
+	//Wylaczenie timera
+	RefreshTimer->Enabled = false;
+	//Odswiezenie listy kontaktow
+	RefreshList();
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::aAllowSaveExecute(TObject *Sender)
 {
-  SaveButton->Enabled = true;
+	SaveButton->Enabled = true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TSettingsForm::sSkinManagerSysDlgInit(TacSysDlgData DlgData, bool &AllowSkinning)
 {
-  AllowSkinning = false;
+	AllowSkinning = false;
 }
 //---------------------------------------------------------------------------
 
