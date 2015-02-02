@@ -1,4 +1,4 @@
 PL:
-Wtyczka posiada jedn¹ prost¹ funkcjonalnoœæ – skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.
+Skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.
 EN:
-The plugin have one simple function - reduces all the links in chat window and in contact list to more convenient forms.
+Reduces all the links in chat window and in contact list to more convenient forms.

@@ -696,7 +696,7 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 	PluginInfo.cbSize = sizeof(TPluginInfo);
 	PluginInfo.ShortName = L"TrimLinks";
 	PluginInfo.Version = PLUGIN_MAKE_VERSION(1,4,1,0);
-	PluginInfo.Description = L"Skracanie wyœwietlania odnoœników do wygodniejszej formy";
+	PluginInfo.Description = L"Skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.";
 	PluginInfo.Author = L"Krzysztof Grochocki";
 	PluginInfo.AuthorMail = L"kontakt@beherit.pl";
 	PluginInfo.Copyright = L"Krzysztof Grochocki";
