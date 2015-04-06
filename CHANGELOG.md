@@ -1,3 +1,8 @@
+1.4.1.2
+-----
+* Drobne poprawki.
+* Aktualizacja komponentów AlphaControls do nowszej wersji (9.20).
+
 1.4.1.0
 -----
 * Pełne wsparcie kolorystyki stylizacji okien.
