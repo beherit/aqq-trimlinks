@@ -62,7 +62,7 @@ __fastcall TSettingsForm::TSettingsForm(TComponent* Owner)
 void __fastcall TSettingsForm::WMTransparency(TMessage &Message)
 {
 	Application->ProcessMessages();
-	if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true,(int)Message.LParam);
+	if(sSkinManager->Active) sSkinProvider->BorderForm->UpdateExBordersPos(true, (int)Message.LParam);
 }
 //---------------------------------------------------------------------------
 
@@ -153,8 +153,8 @@ void __fastcall TSettingsForm::aLoadSettingsExecute(TObject *Sender)
 {
 	//Odczyt ustawien
 	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
-	MessagesCheckBox->Checked = Ini->ReadBool("Trim","Messages",true);
-	StatusCheckBox->Checked	= Ini->ReadBool("Trim","Status",true);
+	MessagesCheckBox->Checked = Ini->ReadBool("Trim", "Messages", true);
+	StatusCheckBox->Checked	= Ini->ReadBool("Trim", "Status", true);
 	delete Ini;
 }
 //---------------------------------------------------------------------------
@@ -163,8 +163,8 @@ void __fastcall TSettingsForm::aSaveSettingsExecute(TObject *Sender)
 {
 	//Zapisywanie ustawien
 	TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Settings.ini");
-	Ini->WriteBool("Trim","Messages",MessagesCheckBox->Checked);
-	Ini->WriteBool("Trim","Status",StatusCheckBox->Checked);
+	Ini->WriteBool("Trim", "Messages", MessagesCheckBox->Checked);
+	Ini->WriteBool("Trim", "Status", StatusCheckBox->Checked);
 	delete Ini;
 }
 //---------------------------------------------------------------------------
@@ -218,7 +218,7 @@ void __fastcall TSettingsForm::GetYouTubeTitleThreadRun(TIdThreadComponent *Send
 			if(!Title.IsEmpty())
 			{
 				TIniFile *Ini = new TIniFile(GetPluginUserDir() + "\\\\TrimLinks\\\\Session.ini");
-				Ini->WriteString("YouTube",ConvertToInt(ID),EncodeBase64(Title));
+				Ini->WriteString("YouTube", ConvertToInt(ID), EncodeBase64(Title));
 				delete Ini;
 			}
 			//Blokowanie wskaznego ID na czas sesji
