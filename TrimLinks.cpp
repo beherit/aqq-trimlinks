@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------
-// Copyright (C) 2012-2015 Krzysztof Grochocki
+// Copyright (C) 2012-2016 Krzysztof Grochocki
 //
 // This file is part of TrimLinks
 //
@@ -696,9 +696,9 @@ extern "C" PPluginInfo __declspec(dllexport) __stdcall AQQPluginInfo(DWORD AQQVe
 	PluginInfo.Version = PLUGIN_MAKE_VERSION(1,4,1,2);
 	PluginInfo.Description = L"Skraca wszystkie odnoœniki w oknie rozmowy jak i te na liœcie kontaktów do znaczniej wygodniejszej formy.";
 	PluginInfo.Author = L"Krzysztof Grochocki";
-	PluginInfo.AuthorMail = L"kontakt@beherit.pl";
+	PluginInfo.AuthorMail = L"contact@beherit.pl";
 	PluginInfo.Copyright = L"Krzysztof Grochocki";
-	PluginInfo.Homepage = L"http://beherit.pl";
+	PluginInfo.Homepage = L"beherit.pl";
 	PluginInfo.Flag = 0;
 	PluginInfo.ReplaceDefaultModule = 0;
 
