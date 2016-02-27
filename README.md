@@ -20,7 +20,7 @@ Wtyczka TrimLinks objęta jest licencją [GNU General Public License 3](http://w
 
 ~~~~
 TrimLinks
-Copyright (C) 2012-2015  Krzysztof Grochocki
+Copyright (C) 2012-2016  Krzysztof Grochocki
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
